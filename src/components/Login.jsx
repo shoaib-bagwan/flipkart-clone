@@ -3,60 +3,84 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-  const navigate = useNavigate()
-  const apiUrl = 'https://flipkart-backend-1-os6w.onrender.com'
+  const navigate = useNavigate();
+  const apiUrl = 'https://flipkart-backend-1-os6w.onrender.com';
   const [data, setData] = useState({
-    username: '',
     email: '',
     password: '',
-  })
+  });
 
   const get = (e) => {
-    var name = e.target.name;
-    var value = e.target.value;
-    setData({ ...data, [name]: value })
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
   }
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${apiUrl}/api/auth/login`, data).then(res => {
-        console.log(res.data)
-        localStorage.setItem("UserName",res.data.username);
-        localStorage.setItem("email",res.data.email);
-        localStorage.setItem("address",res.data.address);
-        localStorage.setItem("Token",res.data.token);
-        
-        navigate('/home')
-      }).catch(err=>{
-        console.log(err)
-        alert("no username found do Register")
-      })
+      await axios.post(`${apiUrl}/api/auth/login`, data)
+        .then(res => {
+          console.log(res.data);
+          localStorage.setItem("UserName", res.data.username);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("address", res.data.address);
+          localStorage.setItem("Token", res.data.token);
+          navigate('/home');
+        })
+        .catch(err => {
+          console.log(err);
+          alert("No username found. Please Register.");
+        });
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-    setData({
-    username: '',
-    email: '',
-    password: '',
-    })
+    setData({ email: '', password: '' });
   }
+
   return (
-    <div>
-      <div className="container">
-        <h1 className="text-center mt-3">Login Form</h1>
-        <form onSubmit={submitHandler} className='border rounded-4 p-5 w-50 mx-auto shadow-lg product-card' style={{marginTop:"2%"}}>
-          <input type="email" onChange={get} name="email" id="email" placeholder="Enter email" className="form-control" /><br />
-          <input type="password" onChange={get} name="password" id="pass" placeholder="Enter password" className="form-control" /><br />
-          <p className='text-center'>New user ? <Link to="/new-register">create Account</Link></p>
-          <div className="d-flex justify-content-between">
-            <input type="submit" className="btn btn-success" value="Submit" />
-            <input type="reset" className="btn btn-danger" value="Reset" />
+    <div className="container">
+      <div className="row justify-content-center mt-5">
+        <div className="col-12 col-sm-10 col-md-8 col-lg-5">
+          <div className="card shadow-lg rounded-4 p-4">
+            <h2 className="text-center mb-4">Login</h2>
+            <form onSubmit={submitHandler}>
+              <div className="mb-3">
+                <input
+                  type="email"
+                  onChange={get}
+                  name="email"
+                  id="email"
+                  value={data.email}
+                  placeholder="Enter email"
+                  className="form-control"
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="password"
+                  onChange={get}
+                  name="password"
+                  id="pass"
+                  value={data.password}
+                  placeholder="Enter password"
+                  className="form-control"
+                  required
+                />
+              </div>
+              <p className='text-center'>
+                New user? <Link to="/new-register">Create Account</Link>
+              </p>
+              <div className="d-grid gap-2 d-md-flex justify-content-md-between">
+                <button type="submit" className="btn btn-success w-100 w-md-auto">Submit</button>
+                <button type="reset" className="btn btn-danger w-100 w-md-auto">Reset</button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   )
 }
 
-export default Login
+export default Login;
