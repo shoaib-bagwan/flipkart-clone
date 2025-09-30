@@ -38,7 +38,7 @@ function Cart() {
       totalAmount: totalPrice,
       products: cart.map(item => ({
         productName: item.pname,
-        quantity: item.quantity,
+        quantity: item.quantity || 1,
         totalPrice: item.price * item.quantity
       }))
     };

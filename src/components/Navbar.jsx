@@ -29,11 +29,9 @@ const Navbar = () => {
 
   const getResult = () => {
     if (!inp) return;
-
     const foundByName = product.find(
       (e) => e.pname.toLowerCase() === inp.toLowerCase()
     );
-
     const foundByPrice = product.find(
       (e) => String(e.price).trim() === inp.trim()
     );
@@ -89,65 +87,49 @@ const Navbar = () => {
             </button>
           </form>
 
-          <ul className="navbar-nav align-items-center">
-            <li className="nav-item dropdown ms-3">
-              <button
-                className="btn btn-tertiary dropdown-toggle"
+          <ul className="navbar-nav align-items-lg-center ms-auto">
+            {/* Profile Dropdown */}
+            <li className="nav-item dropdown">
+              <Link
+                className="nav-link dropdown-toggle d-flex align-items-center"
+                to="#"
+                role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <img src={Profile} alt="profile" className="me-2" />
                 {UserName || "Profile"}
-              </button>
+              </Link>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li>
-                  <Link className="dropdown-item" to="/new-register">
-                    Register / New User
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/home" onClick={logOut}>
-                    Logout
-                  </Link>
-                </li>
+                <li><Link className="dropdown-item" to="/new-register">Register / New User</Link></li>
+                <li><Link className="dropdown-item" to="/login">Login</Link></li>
+                <li><Link className="dropdown-item" to="/home" onClick={logOut}>Logout</Link></li>
               </ul>
             </li>
 
-            <li className="nav-item ms-3">
-              <Link className="nav-link position-relative" to="/cart">
-                <img src={Cart} alt="cart" />
-                <span> Cart
-                <span className="badge bg-danger ms-1">
-                  {count}
-                </span>
-                </span>
+            {/* Cart */}
+            <li className="nav-item ms-lg-3">
+              <Link className="nav-link position-relative d-flex align-items-center" to="/cart">
+                <img src={Cart} alt="cart" className="me-1" />
+                Cart
+                <span className="badge bg-danger ms-1">{count}</span>
               </Link>
             </li>
 
-            <li className="nav-item dropdown ms-3">
-              <button
-                className="btn btn-tertiary dropdown-toggle"
+            {/* More Dropdown */}
+            <li className="nav-item dropdown ms-lg-3">
+              <Link
+                className="nav-link dropdown-toggle d-flex align-items-center"
+                to="#"
+                role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <img src={More} alt="more" />
-              </button>
-              <ul className="dropdown-menu ">
-                <li>
-                  <Link className="dropdown-item" to="/notification">
-                    Notification
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/contact">
-                    Contact
-                  </Link>
-                </li>
+              </Link>
+              <ul className="dropdown-menu dropdown-menu-start">
+                <li><Link className="dropdown-item" to="/notification">Notification</Link></li>
+                <li><Link className="dropdown-item" to="/contact">Contact</Link></li>
               </ul>
             </li>
           </ul>
