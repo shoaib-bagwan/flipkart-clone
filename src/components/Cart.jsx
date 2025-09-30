@@ -1,0 +1,114 @@
+import axios from "axios";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "./CartContext";
+
+function Cart() {
+  const UserName = localStorage.getItem("UserName");
+  const email = localStorage.getItem("email");
+
+  const { apiUrl, cart, setCart, setCount, setOrder } = useContext(CartContext);
+
+  const customerName = UserName;
+  const customerEmail = email;
+
+  // Remove item from cart
+  const removeData = (index) => {
+    const updateCart = [...cart];
+    updateCart.splice(index, 1);
+    setCart(updateCart);
+    setCount(updateCart.length);
+  }
+
+  // Update quantity for a specific item
+  const getQuantity = (value, index) => {
+    const updatedCart = [...cart];
+    updatedCart[index].quantity = parseInt(value) || 1;
+    setCart(updatedCart);
+  }
+
+  // Calculate total price
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+
+  // Place order
+  const placeOrder = async () => {
+    const orderData = {
+      customerName,
+      customerEmail,
+      totalAmount: totalPrice,
+      products: cart.map(item => ({
+        productName: item.pname,
+        quantity: item.quantity,
+        totalPrice: item.price * item.quantity
+      }))
+    };
+
+    try {
+      const res = await axios.post(`${apiUrl}/api/order/place-order`, orderData);
+      console.log(res.data);
+      setOrder(res.data);
+      setCart([]);
+      setCount(0);
+      alert("Order placed successfully!");
+    } catch (err) {
+      console.log(err);
+      alert("Can't place order");
+    }
+  }
+
+  if (!UserName) return <p className="text-center mt-5">Please login to view your cart.</p>;
+  if (!cart || cart.length === 0) return <p className="text-center mt-5">{UserName}, your cart is empty.</p>;
+
+  console.log('item', cart);
+  return (
+    <div className="container mt-4">
+      <h4 className="mb-4">Your Cart</h4>
+
+      <div className="table-responsive">
+        <table className="table table-bordered align-middle text-center">
+          <thead className="table-light">
+            <tr>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th style={{ width: "120px" }}>Quantity</th>
+              <th>Subtotal</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <Link to={`/id/${item._id}`} className="text-decoration-none">
+                    {item.pname}
+                  </Link>
+                </td>
+                <td>₹{Number(item.price).toLocaleString('en-IN')}</td>
+                <td>
+                  <input
+                    type="number"
+                    className="form-control text-center"
+                    value={item.quantity || 1}
+                    min={1}
+                    onChange={(e) => getQuantity(e.target.value, index)}
+                  />
+                </td>
+                <td>₹{Number(item.price * (item.quantity || 1)).toLocaleString('en-IN')}</td>
+                <td>
+                  <button className="btn btn-danger btn-sm" onClick={() => removeData(index)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <h5>Total: ₹{Number(totalPrice).toLocaleString('en-IN')}</h5>
+        <button className="btn btn-success btn-lg" onClick={placeOrder}>Buy Now</button>
+      </div>
+    </div>
+  );
+}
+
+export default Cart;

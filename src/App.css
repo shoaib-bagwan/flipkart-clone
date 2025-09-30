@@ -1,0 +1,15 @@
+.search-bar{
+    min-width: 800px;
+    background-color: rgb(243, 247, 251);
+    
+}
+.product-card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
