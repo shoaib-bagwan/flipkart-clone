@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function AllOrders() {
-  const apiUrl = "http://localhost:8000";
+  const apiUrl = "https://flipkart-backend-1-os6w.onrender.com";
   const [orders, setOrders] = useState([]);
 
   const fetchData = async () => {

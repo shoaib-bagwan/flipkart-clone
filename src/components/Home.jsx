@@ -7,7 +7,7 @@ import Category from "./Category";
 
   function Home() {
     const {AddToCard}=useContext(CartContext);
-    const apiUrl = "http://localhost:8000";
+    const apiUrl = "https://flipkart-backend-1-os6w.onrender.com";
     const [product, setProduct] = useState([]);
    
    
