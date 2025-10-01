@@ -18,17 +18,20 @@ function Cart() {
     updateCart.splice(index, 1);
     setCart(updateCart);
     setCount(updateCart.length);
-  }
+  };
 
-  // Update quantity for a specific item
+  // Update quantity
   const getQuantity = (value, index) => {
     const updatedCart = [...cart];
     updatedCart[index].quantity = parseInt(value) || 1;
     setCart(updatedCart);
-  }
+  };
 
-  // Calculate total price
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+  // Total price
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.price * (item.quantity || 1),
+    0
+  );
 
   // Place order
   const placeOrder = async () => {
@@ -36,11 +39,11 @@ function Cart() {
       customerName,
       customerEmail,
       totalAmount: totalPrice,
-      products: cart.map(item => ({
+      products: cart.map((item) => ({
         productName: item.pname,
         quantity: item.quantity || 1,
-        totalPrice: item.price * item.quantity
-      }))
+        totalPrice: item.price * item.quantity,
+      })),
     };
 
     try {
@@ -54,17 +57,21 @@ function Cart() {
       console.log(err);
       alert("Can't place order");
     }
-  }
+  };
 
-  if (!UserName) return <p className="text-center mt-5">Please login to view your cart.</p>;
-  if (!cart || cart.length === 0) return <p className="text-center mt-5">{UserName}, your cart is empty.</p>;
+  if (!UserName)
+    return <p className="text-center mt-5">Please login to view your cart.</p>;
+  if (!cart || cart.length === 0)
+    return (
+      <p className="text-center mt-5">{UserName}, your cart is empty.</p>
+    );
 
-  console.log('item', cart);
   return (
     <div className="container mt-4">
       <h4 className="mb-4">Your Cart</h4>
 
-      <div className="table-responsive">
+      {/* Desktop Table View */}
+      <div className="d-none d-md-block table-responsive">
         <table className="table table-bordered align-middle text-center">
           <thead className="table-light">
             <tr>
@@ -83,7 +90,7 @@ function Cart() {
                     {item.pname}
                   </Link>
                 </td>
-                <td>₹{Number(item.price).toLocaleString('en-IN')}</td>
+                <td>₹{Number(item.price).toLocaleString("en-IN")}</td>
                 <td>
                   <input
                     type="number"
@@ -93,9 +100,18 @@ function Cart() {
                     onChange={(e) => getQuantity(e.target.value, index)}
                   />
                 </td>
-                <td>₹{Number(item.price * (item.quantity || 1)).toLocaleString('en-IN')}</td>
                 <td>
-                  <button className="btn btn-danger btn-sm" onClick={() => removeData(index)}>Delete</button>
+                  ₹{Number(item.price * (item.quantity || 1)).toLocaleString(
+                    "en-IN"
+                  )}
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => removeData(index)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -103,9 +119,54 @@ function Cart() {
         </table>
       </div>
 
-      <div className="d-flex justify-content-between align-items-center mt-4">
-        <h5>Total: ₹{Number(totalPrice).toLocaleString('en-IN')}</h5>
-        <button className="btn btn-success btn-lg" onClick={placeOrder}>Buy Now</button>
+      {/* Mobile Card View */}
+      <div className="d-md-none">
+        {cart.map((item, index) => (
+          <div
+            key={index}
+            className="card mb-3 shadow-sm border-0 rounded-3"
+          >
+            <div className="card-body">
+              <h6>
+                <Link
+                  to={`/id/${item._id}`}
+                  className="text-decoration-none fw-bold"
+                >
+                  {item.pname}
+                </Link>
+              </h6>
+              <p className="mb-1">Price: ₹{Number(item.price).toLocaleString("en-IN")}</p>
+              <div className="d-flex align-items-center mb-2">
+                <label className="me-2">Qty:</label>
+                <input
+                  type="number"
+                  className="form-control form-control-sm text-center"
+                  style={{ width: "80px" }}
+                  value={item.quantity || 1}
+                  min={1}
+                  onChange={(e) => getQuantity(e.target.value, index)}
+                />
+              </div>
+              <p className="mb-1">
+                Subtotal: ₹{Number(item.price * (item.quantity || 1)).toLocaleString("en-IN")}
+              </p>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => removeData(index)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Total + Buy Now */}
+      <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4 gap-2">
+        <h5>Total: ₹{Number(totalPrice).toLocaleString("en-IN")}</h5>
+        <button className="btn btn-success btn-lg  w-sm-auto" onClick={placeOrder}>
+          Buy Now
+        </button>
       </div>
     </div>
   );
