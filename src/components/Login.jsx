@@ -25,7 +25,11 @@ function Login() {
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("address", res.data.address);
           localStorage.setItem("Token", res.data.token);
-          navigate('/home');
+          if(res.data.role==='admin'){
+            navigate('/admin');
+          }else{
+            navigate('/home');
+          }
         })
         .catch(err => {
           console.log(err);
