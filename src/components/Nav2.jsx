@@ -3,12 +3,12 @@ import Tv from '../assets/Tv.webp';
 
 function Nav2() {
   const categories = [
-    { name: "Minutes", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/3dbe4c89fbf0003d.png?q=100", link: null },
+    { name: "Minutes", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/3dbe4c89fbf0003d.png?q=100", link: "/category/Minutes" },
     { name: "Tablet", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/cd6aca4f61e8ea95.png?q=100", link: "/category/Mobiles" },
-    { name: "TV", img: Tv, link: "/category/Televisions" },
-    { name: "Flights", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/d9eea6cd0e7b68bb.png?q=100", link: null },
-    { name: "Toys", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/3d7144345bbcf2e4.png?q=100", link: null },
-    { name: "Grocery", img: "https://rukminim2.flixcart.com/fk-p-flap/64/64/image/2ebb95ec20eae8f1.png?q=100", link: null },
+    { name: "TV", img: Tv, link: "/category/TV" },
+    { name: "Flights", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/d9eea6cd0e7b68bb.png?q=100", link: "/category/Flights" },
+    { name: "Toys", img: "https://rukminim1.flixcart.com/fk-p-flap/64/64/image/3d7144345bbcf2e4.png?q=100", link: "/category/Toys" },
+    { name: "Grocery", img: "https://rukminim2.flixcart.com/fk-p-flap/64/64/image/2ebb95ec20eae8f1.png?q=100", link: "/category/Grocery" },
     { name: "Fashion", img: "https://rukminim2.flixcart.com/fk-p-flap/64/64/image/ec2982e5564fe07c.png?q=100", link: "/category/Clothing" },
     { name: "Laptops", img: "https://rukminim2.flixcart.com/fk-p-flap/64/64/image/4d6b13d5a0e0724a.png?q=100", link: "/category/Laptops" },
     { name: "Kitchen", img: "https://rukminim2.flixcart.com/fk-p-flap/64/64/image/febcb9896245caf4.png?q=100", link: "/category/Kitchen Appliances" },
