@@ -19,41 +19,37 @@ function Register() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${apiUrl}/api/auth/register`, data)
-        .then(res => {
-          console.log(res);
-          alert("Register Successfully");
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } catch (e) {
-      console.log(e);
+      const res = await axios.post(`${apiUrl}/api/auth/register`, data);
+      console.log(res.data);
+      alert("Register Successfully");
+      setData({ username: '', email: '', password: '', address: '' });
+    } catch (err) {
+      console.error(err);
+      alert("Registration failed. Please try again.");
     }
-    setData({
-      username: '',
-      email: '',
-      password: '',
-      address: ''
-    });
+  };
+
+  const resetHandler = () => {
+    setData({ username: '', email: '', password: '', address: '' });
   };
 
   return (
-    <div className="container-fluid px-3">
-      <h1 className="text-center mt-3">Register Form</h1>
-
+    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light ">
       <form
         onSubmit={submitHandler}
-        className="mx-auto border rounded-4 p-3 p-sm-4 shadow-lg bg-white"
-        style={{  width: "100%", maxWidth: "500px" }}
+        className="border rounded-4 p-4 shadow-lg bg-white product-card"
+        style={{ width: "100%", maxWidth: "400px" }}
       >
+        <h2 className="text-center mb-4">Register</h2>
+
         <input
           type="text"
           onChange={get}
-          placeholder="Enter UserName"
+          placeholder="Enter Username"
           name="username"
           value={data.username}
           className="form-control mb-3"
+          required
         />
 
         <input
@@ -63,15 +59,17 @@ function Register() {
           name="email"
           value={data.email}
           className="form-control mb-3"
+          required
         />
 
         <textarea
           onChange={get}
-          placeholder="Enter the Valid Address"
+          placeholder="Enter Address"
           name="address"
           value={data.address}
           className="form-control mb-3"
           rows="3"
+          required
         />
 
         <input
@@ -81,15 +79,24 @@ function Register() {
           name="password"
           value={data.password}
           className="form-control mb-3"
+          required
         />
 
         <p className="text-center">
-          Already have an Account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
 
         <div className="d-flex flex-column flex-sm-row justify-content-between gap-2">
-          <button type="submit" className="btn btn-success w-100 w-sm-auto">Submit</button>
-          <button type="reset" className="btn btn-danger w-100 w-sm-auto">Reset</button>
+          <button type="submit" className="btn btn-success w-100 w-sm-auto">
+            Submit
+          </button>
+          <button
+            type="button"
+            onClick={resetHandler}
+            className="btn btn-danger w-100 w-sm-auto"
+          >
+            Reset
+          </button>
         </div>
       </form>
     </div>

@@ -70,6 +70,7 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarContent">
+          
           <form className="d-flex flex-grow-1 me-2 my-2 my-lg-0" role="search">
             <input
               className="form-control me-2"
@@ -85,9 +86,11 @@ const Navbar = () => {
             >
               Search
             </button>
+            
           </form>
 
           <ul className="navbar-nav align-items-lg-center ms-auto">
+            <li><Link  className="btn btn-outline-primary" to="/home">Home</Link></li>
             {/* Profile Dropdown */}
             <li className="nav-item dropdown">
               <Link

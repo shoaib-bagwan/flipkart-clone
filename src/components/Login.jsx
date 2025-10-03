@@ -42,10 +42,10 @@ function Login() {
   }
 
   return (
-    <div className="container">
-      <div className="row justify-content-center mt-5">
+    <div className="container bg-light">
+      <div className="row justify-content-center align-items-center min-vh-100">
         <div className="col-12 col-sm-10 col-md-8 col-lg-5">
-          <div className="card shadow-lg rounded-4 p-4">
+          <div className="card shadow-lg rounded-4 p-4 product-card">
             <h2 className="text-center mb-4">Login</h2>
             <form onSubmit={submitHandler}>
               <div className="mb-3">
@@ -56,7 +56,7 @@ function Login() {
                   id="email"
                   value={data.email}
                   placeholder="Enter email"
-                  className="form-control"
+                  className="form-control "
                   required
                 />
               </div>
@@ -79,6 +79,7 @@ function Login() {
                 <button type="submit" className="btn btn-success w-100 w-md-auto">Submit</button>
                 <button type="reset" className="btn btn-danger w-100 w-md-auto">Reset</button>
               </div>
+              <Link to="/home"className="btn btn-outline-dark mt-3">Skip Login</Link>
             </form>
           </div>
         </div>

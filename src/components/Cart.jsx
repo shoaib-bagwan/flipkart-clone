@@ -60,7 +60,12 @@ function Cart() {
   };
 
   if (!UserName)
-    return <p className="text-center mt-5">Please login to view your cart.</p>;
+    return (
+      <div className="d-flex flex-column align-items-center">
+        <h2 className="text-center mt-5">Please login to view your cart.</h2>;
+        <span><Link to="/login"className="btn btn-outline-danger btn-lg">Login</Link></span>
+      </div>
+    );
   if (!cart || cart.length === 0)
     return (
       <p className="text-center mt-5">{UserName}, your cart is empty.</p>
