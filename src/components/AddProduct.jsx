@@ -1,8 +1,8 @@
-import axios from "axios"
-import { useState } from "react"
+import axios from "axios";
+import { useState } from "react";
 
 function AddProduct() {
-    const apiUrl = "https://flipkart-backend-1-os6w.onrender.com"
+    const apiUrl = "http://localhost:8000"
     const [product, setProduct] = useState({
         pname: '',
         description: '',

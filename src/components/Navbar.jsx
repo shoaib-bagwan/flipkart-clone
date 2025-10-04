@@ -10,7 +10,7 @@ const Navbar = () => {
   const { count } = useContext(CartContext);
   const [inp, setInput] = useState("");
   const [product, setProduct] = useState([]);
-  const apiUrl = 'https://flipkart-backend-1-os6w.onrender.com';
+  const apiUrl = 'http://localhost:8000';
   const UserName = localStorage.getItem("UserName");
   const navigate = useNavigate();
 

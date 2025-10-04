@@ -8,7 +8,7 @@ function ProductDetailByCategory() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
   const { category } = useParams();
-  const apiUrl = "https://flipkart-backend-1-os6w.onrender.com";
+  const apiUrl = "http://localhost:8000";
 
   // Fetch selected product
   const fetchProduct = async () => {

@@ -8,7 +8,7 @@ function ProductDetails({ apiEndpoint, paramName }) {
   const [suggestions, setSuggestions] = useState([]);
   const { AddToCard } = useContext(CartContext);
   const params = useParams();
-  const apiUrl = "https://flipkart-backend-1-os6w.onrender.com";
+  const apiUrl = "http://localhost:8000";
 
   const paramValue = params[paramName]; // Get the dynamic param
 

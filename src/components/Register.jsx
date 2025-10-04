@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 
 function Register() {
-  const apiUrl = 'https://flipkart-backend-1-os6w.onrender.com';
+  const apiUrl = 'http://localhost:8000';
   const [data, setData] = useState({
     username: '',
     email: '',

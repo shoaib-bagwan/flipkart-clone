@@ -32,7 +32,45 @@ function Cart() {
     (acc, item) => acc + item.price * (item.quantity || 1),
     0
   );
+  // PayNow
+  const PayNow = async (amount) => {
+    try {
+      const { data: keyData } = await axios.get(`/api/product/getkey`);
+      const { key } = keyData;
+      const { data: orderData } = await axios.post(`/api/product/payment/process`, {
+        amount,
+      });
+      const { order } = orderData
+      
+      const options = {
+        key, // Replace with your Razorpay key_id
+        amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: 'INR',
+        name: 'Shoaib Projects',
+        description: 'RazorPay Integration',
+        order_id: order.id, // This is the order_id created in the backend
+        callback_url: 'http://localhost:5173/paymentSuccess', // full URL
+        handler: function (response) {
+        // Redirect to your React route
+        window.location.href = `/paymentSuccess?reference=${response.razorpay_payment_id}`;
+    },
+        prefill: {
+          name: 'Shoaib',
+          email: 'customer@example.com',
+          contact: '9999999999'
+        },
+        theme: {
+          color: '#F37254'
+        },
+      };
 
+      const rzp = new Razorpay(options);
+      rzp.open();
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
   // Place order
   const placeOrder = async () => {
     const orderData = {
@@ -63,7 +101,7 @@ function Cart() {
     return (
       <div className="d-flex flex-column align-items-center">
         <h2 className="text-center mt-5">Please login to view your cart.</h2>;
-        <span><Link to="/login"className="btn btn-outline-danger btn-lg">Login</Link></span>
+        <span><Link to="/login" className="btn btn-outline-danger btn-lg">Login</Link></span>
       </div>
     );
   if (!cart || cart.length === 0)
@@ -171,6 +209,9 @@ function Cart() {
         <h5>Total: ₹{Number(totalPrice).toLocaleString("en-IN")}</h5>
         <button className="btn btn-success btn-lg  w-sm-auto" onClick={placeOrder}>
           Buy Now
+        </button>
+        <button className="btn btn-success btn-lg  w-sm-auto" onClick={() => PayNow(totalPrice)}>
+          Pay now
         </button>
       </div>
     </div>
