@@ -35,9 +35,9 @@ function Cart() {
   // PayNow
   const PayNow = async (amount) => {
     try {
-      const { data: keyData } = await axios.get(`/api/product/getkey`);
+      const { data: keyData } = await axios.get(`${apiUrl}/api/product/getkey`);
       const { key } = keyData;
-      const { data: orderData } = await axios.post(`/api/product/payment/process`, {
+      const { data: orderData } = await axios.post(`${apiUrl}/api/product/payment/process`, {
         amount,
       });
       const { order } = orderData
