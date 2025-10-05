@@ -75,7 +75,7 @@ function Login() {
                 />
               </div>
               <p className='text-center'>
-                New user? <Link to="/new-register">Create Account</Link>
+                New user? <Link to="/register">Create Account</Link>
               </p>
               <div className="d-grid gap-2 d-md-flex justify-content-md-between">
                 <button type="submit" className="btn btn-success w-100 w-md-auto">Submit</button>
