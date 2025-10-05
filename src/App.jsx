@@ -23,7 +23,7 @@ import Register from './components/Register';
 import UpdateProduct from './components/UpdateProduct';
 function Layout() {
   const location = useLocation();
-  const hideNavFooter = location.pathname === "/login" || location.pathname === "/new-register";
+  const hideNavFooter = location.pathname === "/login" || location.pathname === "/register";
   return (
     <>
       {!hideNavFooter && <Navbar />}
@@ -39,7 +39,7 @@ function Layout() {
 
         </>}
         />
-        <Route path="/new-register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path='/admin' element={<AdminNavbar />} />
         <Route path='/add' element={

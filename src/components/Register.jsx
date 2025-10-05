@@ -9,7 +9,8 @@ function Register() {
     username: '',
     email: '',
     password: '',
-    address: ''
+    address: '',
+    mobileNo: '',
   });
 
   const get = (e) => {
@@ -23,7 +24,7 @@ function Register() {
       const res = await axios.post(`${apiUrl}/api/auth/register`, data);
       console.log(res.data);
       alert("Register Successfully");
-      setData({ username: '', email: '', password: '', address: '' });
+      setData({ username: '', email: '', password: '', address: '', mobileNo: '' });
     } catch (err) {
       console.error(err);
       alert("Registration failed. Please try again.");
@@ -31,7 +32,7 @@ function Register() {
   };
 
   const resetHandler = () => {
-    setData({ username: '', email: '', password: '', address: '' });
+    setData({ username: '', email: '', password: '', address: '', mobileNo: '' });
   };
 
   return (
@@ -59,6 +60,16 @@ function Register() {
           placeholder="Enter Email"
           name="email"
           value={data.email}
+          className="form-control mb-3"
+          required
+        />
+
+        <input
+          type="tel"
+          onChange={get}
+          placeholder="Enter Mobile No"
+          name="mobileNo"
+          value={data.mobileNo}
           className="form-control mb-3"
           required
         />

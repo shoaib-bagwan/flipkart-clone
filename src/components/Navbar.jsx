@@ -44,7 +44,10 @@ const Navbar = () => {
 
   const logOut = () => {
     localStorage.removeItem("UserName");
-    localStorage.removeItem("token");
+    localStorage.removeItem("Token");
+    localStorage.removeItem("mobileNo");
+    localStorage.removeItem("address");
+    localStorage.removeItem("email");
   };
 
   return (
@@ -105,7 +108,7 @@ const Navbar = () => {
                 {UserName || "Profile"}
               </Link>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li><Link className="dropdown-item" to="/new-register">Register / New User</Link></li>
+                <li><Link className="dropdown-item" to="/register">Register / New User</Link></li>
                 <li><Link className="dropdown-item" to="/login">Login</Link></li>
                 <li><Link className="dropdown-item" to="/home" onClick={logOut}>Logout</Link></li>
               </ul>

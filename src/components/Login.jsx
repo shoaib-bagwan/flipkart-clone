@@ -24,6 +24,7 @@ function Login() {
           console.log(res.data);
           localStorage.setItem("UserName", res.data.username);
           localStorage.setItem("email", res.data.email);
+          localStorage.setItem("mobileNo", res.data.mobileNo);
           localStorage.setItem("address", res.data.address);
           localStorage.setItem("Token", res.data.token);
           if(res.data.role==='admin'){

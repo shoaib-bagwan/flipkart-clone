@@ -44,6 +44,7 @@ function AllOrders() {
           >
             <h4 className="card-title">{order.customerName}</h4>
             <p className="card-text text-muted">{order.customerEmail}</p>
+            <p className="card-text text-muted">{order.customerMobile}</p>
             <h5>Total: ₹{order.totalAmount}</h5>
 
             <h6 className="mt-3">Products:</h6>

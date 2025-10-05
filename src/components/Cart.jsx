@@ -6,11 +6,13 @@ import { CartContext } from "./CartContext";
 function Cart() {
   const UserName = localStorage.getItem("UserName");
   const email = localStorage.getItem("email");
+  const mobileNo = localStorage.getItem("mobileNo");
 
   const { apiUrl, cart, setCart, setCount, setOrder } = useContext(CartContext);
 
   const customerName = UserName;
   const customerEmail = email;
+  const customerMobile = mobileNo;
 
   // Remove item from cart
   const removeData = (index) => {
@@ -41,7 +43,7 @@ function Cart() {
         amount,
       });
       const { order } = orderData
-      
+
       const options = {
         key, // Replace with your Razorpay key_id
         amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -50,14 +52,38 @@ function Cart() {
         description: 'RazorPay Integration',
         order_id: order.id, // This is the order_id created in the backend
         callback_url: 'http://localhost:5173/paymentSuccess', // full URL
-        handler: function (response) {
-        // Redirect to your React route
-        window.location.href = `/paymentSuccess?reference=${response.razorpay_payment_id}`;
-    },
+        handler: async function (response) {
+          console.log("payment Success", response);
+          const orderData = {
+            customerName,
+            customerEmail,
+            customerMobile,
+            totalAmount: totalPrice,
+            products: cart.map((item) => ({
+              productName: item.pname,
+              quantity: Number(item.quantity || 1),
+              totalPrice: Number(item.price) * Number(item.quantity),
+            })),
+          };
+
+          try {
+            const res = await axios.post(`${apiUrl}/api/order/place-order`, orderData);
+            console.log(res.data);
+            setOrder(res.data);
+            setCart([]);
+            setCount(0);
+            alert("✅ Payment successful! Order placed.");
+            window.location.href = `/paymentSuccess?reference=${response.razorpay_payment_id}`;
+          } catch (err) {
+            console.log(err);
+            alert("Payment done, but order not saved. Please contact support.");
+            return;
+          }
+        },
         prefill: {
-          name: 'Shoaib',
-          email: 'customer@example.com',
-          contact: '9999999999'
+          name: customerName || 'Customer',
+          email: customerEmail || 'customer@example.com',
+          contact: customerMobile || '9999999999'
         },
         theme: {
           color: '#F37254'
@@ -66,36 +92,18 @@ function Cart() {
 
       const rzp = new Razorpay(options);
       rzp.open();
+      // Handle payment failure
+      rzp.on('payment.failed', function (response) {
+        console.log('Payment Failed:', response.error);
+        alert('❌ Payment failed. Please try again.');
+      });
     } catch (e) {
-      console.log(e);
+      console.error('Payment initiation failed:', e);
+      alert('Something went wrong while starting payment.');
     }
 
   }
   // Place order
-  const placeOrder = async () => {
-    const orderData = {
-      customerName,
-      customerEmail,
-      totalAmount: totalPrice,
-      products: cart.map((item) => ({
-        productName: item.pname,
-        quantity: item.quantity || 1,
-        totalPrice: item.price * item.quantity,
-      })),
-    };
-
-    try {
-      const res = await axios.post(`${apiUrl}/api/order/place-order`, orderData);
-      console.log(res.data);
-      setOrder(res.data);
-      setCart([]);
-      setCount(0);
-      alert("Order placed successfully!");
-    } catch (err) {
-      console.log(err);
-      alert("Can't place order");
-    }
-  };
 
   if (!UserName)
     return (
@@ -207,9 +215,6 @@ function Cart() {
       {/* Total + Buy Now */}
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-4 gap-2">
         <h5>Total: ₹{Number(totalPrice).toLocaleString("en-IN")}</h5>
-        <button className="btn btn-success btn-lg  w-sm-auto" onClick={placeOrder}>
-          Buy Now
-        </button>
         <button className="btn btn-success btn-lg  w-sm-auto" onClick={() => PayNow(totalPrice)}>
           Pay now
         </button>
