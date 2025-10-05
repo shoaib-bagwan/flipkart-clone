@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-  const apiUrl = 'http://localhost:8000';
+  const apiUrl = 'https://flipkart-backend-2-cup2.onrender.com';
+  // const apiUrl = 'http://localhost:8000';
   const [data, setData] = useState({
     email: '',
     password: '',

@@ -7,7 +7,8 @@ function ProductByPrice() {
   const {AddToCard}=useContext(CartContext);
   const { price } = useParams(); // Get price from URL
   const [products, setProducts] = useState([]);
-  const apiUrl = "http://localhost:8000";
+  const apiUrl = "https://flipkart-backend-2-cup2.onrender.com";
+  // const apiUrl = "http://localhost:8000";
 
   // Fetch products by price
   const fetchProductsByPrice = async () => {

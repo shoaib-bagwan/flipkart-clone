@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function UpdateProduct() {
-    const apiUrl = "http://localhost:8000";
+    const apiUrl = "https://flipkart-backend-2-cup2.onrender.com";
+    // const apiUrl = "http://localhost:8000";
     const [product, setProduct] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);

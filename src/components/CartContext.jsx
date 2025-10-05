@@ -5,7 +5,7 @@ export const CartContext = createContext();
 
 // Provider Component
 export const CartProvider = ({ children }) => {
-    const apiUrl = "http://localhost:8000";
+    const apiUrl = "https://flipkart-backend-2-cup2.onrender.com";
 
     const [quantity, setQuantity] = useState(1);
 

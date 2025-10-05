@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 function DeleteProduct() {
     const [product, setProduct] = useState([]);
-    const apiUrl = "http://localhost:8000"
+    const apiUrl = "https://flipkart-backend-2-cup2.onrender.com"
+    // const apiUrl = "http://localhost:8000"
 
     const fetchData = async () => {
         try {
