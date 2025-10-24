@@ -9,6 +9,7 @@ function Home() {
   const apiUrl = "https://flipkart-backend-2-cup2.onrender.com";
   // const apiUrl = "http://localhost:8000";
   const [product, setProduct] = useState([]);
+  const [loading,setLoading]=useState(true);
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -21,10 +22,12 @@ function Home() {
         .catch((err) => {
           console.log(err);
           alert("Can't get Products");
-        });
+        })
     } catch (e) {
       console.log(e);
-    }
+    } finally {
+    setLoading(false);
+  }
   };
 
   const productDetail = (id) => {
@@ -34,6 +37,15 @@ function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+  if (loading) {
+    return(
+    <div class="d-flex justify-content-center m-5 p-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    );
+  }
 
   return (
     <div className="container-fluid mt-4">

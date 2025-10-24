@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { CartContext } from "./CartContext";
 
 function ProductDetailByCategory() {
-  const {AddToCard}=useContext(CartContext);
+  const { AddToCard } = useContext(CartContext);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
   const { category } = useParams();
@@ -37,7 +37,11 @@ function ProductDetailByCategory() {
     fetchAllProducts();
   }, [category]);
 
-  if (!selectedProduct) return <p className="text-center mt-5">Loading...</p>;
+  if (!selectedProduct) return <div class="d-flex justify-content-center m-5 p-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>;
 
   // Filter out the selected product for suggestions
   const suggestions = allProducts.filter((product) => product.category === category);
@@ -61,13 +65,13 @@ function ProductDetailByCategory() {
                 <h6 className="card-title">{product.pname}</h6>
                 <p className="text-primary mb-2">₹{product.price}</p>
                 <div className="d-flex justify-content-between">
-                <Link
-                  to={`/id/${product._id}`}
-                  className="btn btn-outline-primary w-50 "
-                >
-                  View
-                </Link>
-                <div className="btn btn-outline-success w-50" onClick={()=>AddToCard(product)}>Add to Cart</div>
+                  <Link
+                    to={`/id/${product._id}`}
+                    className="btn btn-outline-primary w-50 "
+                  >
+                    View
+                  </Link>
+                  <div className="btn btn-outline-success w-50" onClick={() => AddToCard(product)}>Add to Cart</div>
                 </div>
               </div>
             </div>

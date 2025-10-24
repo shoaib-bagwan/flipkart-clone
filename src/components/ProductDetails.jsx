@@ -42,10 +42,15 @@ function ProductDetails({ apiEndpoint, paramName }) {
     if (paramValue) {
       fetchProduct();
       fetchSuggestions();
+      window.scrollTo(0,0);
     }
   }, [paramValue, apiEndpoint]);
 
-  if (!product) return <p className="text-center mt-5">Loading...</p>;
+  if (!product) return <div class="d-flex justify-content-center m-5 p-5">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>;
 
   const filteredSuggestions = suggestions.filter((p) => p._id !== product._id);
 
@@ -91,6 +96,7 @@ function ProductDetails({ apiEndpoint, paramName }) {
 
 
       {/* Suggestions */}
+      
       <h4 className="mb-4 fw-bold">You might also like</h4>
       <div className="row g-4">
         {filteredSuggestions.map((p) => (

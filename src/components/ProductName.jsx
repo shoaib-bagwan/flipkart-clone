@@ -38,7 +38,11 @@ function ProductName() {
     fetchAllProducts();
   }, [pname]);
 
-  if (!selectedProduct) return <p className="text-center mt-5">Loading...</p>;
+  if (!selectedProduct) return <div class="d-flex justify-content-center m-5 p-5">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>;
 
   const suggestions = allProducts.filter(
     (product) => selectedProduct && product._id !== selectedProduct._id

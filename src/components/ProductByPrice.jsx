@@ -26,7 +26,11 @@ function ProductByPrice() {
   }, [price]);
 
   if (!products || products.length === 0)
-    return <p className="text-center mt-5">No products found for price ₹{price}</p>;
+    return <div class="d-flex justify-content-center m-5 p-5">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>;
 
   return (
     <div className="container mt-5">
