@@ -31,7 +31,7 @@ function Cart() {
 
   // Total price
   const totalPrice = cart.reduce(
-    (acc, item) => acc + item.price * (item.quantity || 1),
+    (acc, item) => acc + item.price * isNaN(item.quantity)?1: Number(item.quantity || 1),
     0
   );
   // PayNow
@@ -45,8 +45,8 @@ function Cart() {
       const { order } = orderData
 
       const options = {
-        key, // Replace with your Razorpay key_id
-        amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        key, 
+        amount, 
         currency: 'INR',
         name: 'Shoaib Projects',
         description: 'RazorPay Integration',
@@ -54,15 +54,17 @@ function Cart() {
         callback_url: 'http://localhost:5173/paymentSuccess', // full URL
         handler: async function (response) {
           console.log("payment Success", response);
+          // console.log("price:", cart.map(i=>i.price), "quantity:", cart.map(i=>i.quantity));
           const orderData = {
             customerName,
             customerEmail,
             customerMobile,
             totalAmount: totalPrice,
-            products: cart.map((item) => ({
+            products: cart.map((item) => (
+              {
               productName: item.pname,
-              quantity: Number(item.quantity || 1),
-              totalPrice: Number(item.price) * Number(item.quantity),
+              quantity: isNaN(item.quantity)?1: Number(item.quantity || 1),
+              totalPrice: Number(item.price) * isNaN(item.quantity)?1: Number(item.quantity || 1),
             })),
           };
 
@@ -77,6 +79,8 @@ function Cart() {
           } catch (err) {
             console.log(err);
             alert("Payment done, but order not saved. Please contact support.");
+            console.log(orderData)
+            console.log(totalPrice)
             return;
           }
         },
