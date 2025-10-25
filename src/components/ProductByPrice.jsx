@@ -23,6 +23,7 @@ function ProductByPrice() {
 
   useEffect(() => {
     fetchProductsByPrice();
+    window.scrollTo(0,0);
   }, [price]);
 
   if (!products || products.length === 0)

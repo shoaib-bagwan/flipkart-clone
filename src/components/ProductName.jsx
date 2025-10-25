@@ -36,6 +36,7 @@ function ProductName() {
   useEffect(() => {
     fetchProduct();
     fetchAllProducts();
+    window.scrollTo(0,0)
   }, [pname]);
 
   if (!selectedProduct) return <div class="d-flex justify-content-center m-5 p-5">

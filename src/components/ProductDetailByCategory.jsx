@@ -35,6 +35,7 @@ function ProductDetailByCategory() {
   useEffect(() => {
     fetchProduct();
     fetchAllProducts();
+    window.scrollTo(0,0);
   }, [category]);
 
   if (!selectedProduct) return <div class="d-flex justify-content-center m-5 p-5">
