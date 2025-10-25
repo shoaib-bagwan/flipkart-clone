@@ -31,7 +31,7 @@ function Cart() {
 
   // Total price
   const totalPrice = cart.reduce(
-    (acc, item) => acc + item.price * isNaN(item.quantity)?1: Number(item.quantity || 1),
+    (acc, item) => acc + item.price * (isNaN(item.quantity)?1: Number(item.quantity || 1)),
     0
   );
   // PayNow
@@ -64,7 +64,7 @@ function Cart() {
               {
               productName: item.pname,
               quantity: isNaN(item.quantity)?1: Number(item.quantity || 1),
-              totalPrice: Number(item.price) * isNaN(item.quantity)?1: Number(item.quantity || 1),
+              totalPrice: Number(item.price) * (isNaN(item.quantity)?1: Number(item.quantity || 1)),
             })),
           };
 

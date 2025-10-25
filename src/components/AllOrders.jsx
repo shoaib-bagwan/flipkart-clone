@@ -16,14 +16,27 @@ function AllOrders() {
     }
   };
 
-  const deleteOrder = async (id) => {
+  const completeOrder=async(id)=>{
+    if(!window.confirm("Are You sure you want to mark as complete to this order"))return;
+    try{
+      const res=await axios.put(`${apiUrl}/api/order/cancel/${id}`,{role:"Completed"});
+      console.log(res.data);
+      alert("order completed successfully");
+      fetchData();
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const cancelOrder = async (id) => {
+    if(!window.confirm("Are you sure you want to cancel this order"))return;
     try {
-      await axios.delete(`${apiUrl}/api/order/delete/${id}`);
-      alert("Order canceled and deleted");
+      await axios.put(`${apiUrl}/api/order/cancel/${id}`,{role:"admin"});
+      alert("Order cancelled successfully");
       fetchData(); // Refresh after deletion
     } catch (err) {
       console.log(err);
-      alert("Failed to delete order");
+      alert("Failed to cancel order");
     }
   };
 
@@ -42,7 +55,16 @@ function AllOrders() {
             key={index}
             style={{ maxWidth: "600px", margin: "auto" }}
           >
-            <h4 className="card-title">{order.customerName}</h4>
+            <div className="d-flex justify-content-between">
+              <h4 className="card-title">{order.customerName}</h4>
+              <h4 className={`badge ${order.orderStatus === "Pending" ?
+                "bg-primary"
+                : order.orderStatus === "Cancelled by user" ||
+                  order.orderStatus === "Cancelled by admin"
+                  ? "bg-danger border border-warning"
+                  : "bg-success"
+                }`}>{order.orderStatus}</h4>
+            </div>
             <p className="card-text text-muted">{order.customerEmail}</p>
             <p className="card-text text-muted">{order.customerMobile}</p>
             <h5>Total: ₹{order.totalAmount}</h5>
@@ -65,9 +87,15 @@ function AllOrders() {
 
             <button
               className="btn btn-danger btn-sm mt-3"
-              onClick={() => deleteOrder(order._id)}
+              onClick={() => cancelOrder(order._id)}
             >
               Cancel Order
+            </button>
+            <button
+              className="btn btn-success btn-sm mt-3"
+              onClick={() => completeOrder(order._id)}
+            >
+              Complete Order
             </button>
           </div>
         ))

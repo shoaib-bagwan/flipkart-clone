@@ -16,6 +16,7 @@ import Login from './components/Login';
 import Nav2 from './components/Nav2';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
+import OrderHistory from './components/OrderHistory';
 import PaymentSuccess from './components/PaymentSuccess';
 import ProductDetails from './components/ProductDetails';
 import ProductSlide from './components/ProductSlide';
@@ -76,6 +77,7 @@ function Layout() {
         <Route path='/price/:price' element={<ProductDetails apiEndpoint="/api/product/price" paramName="price" />} />
         <Route path='/category/:category' element={<ProductDetails apiEndpoint="/api/product/category" paramName="category" />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/order-history' element={<OrderHistory></OrderHistory>}/>
         <Route path="/paymentSuccess" element={<PaymentSuccess/>} />
         <Route path="*" element={<NotFound />} />
         

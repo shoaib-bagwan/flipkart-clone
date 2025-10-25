@@ -28,7 +28,7 @@ function PaymentSuccess() {
             <strong>Reference ID: </strong> {reference}
           </div>
         )}
-        <a href="/" className="btn btn-success mt-3 w-100">
+        <a href="/home" className="btn btn-success mt-3 w-100">
           Go to Home
         </a>
       </div>

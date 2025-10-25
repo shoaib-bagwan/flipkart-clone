@@ -124,18 +124,18 @@ const Navbar = () => {
             </li>
 
             {/* More Dropdown */}
-            <li className="nav-item dropdown ms-lg-3">
+            <li className="nav-item dropdown">
               <Link
-                className="nav-link dropdown-toggle d-flex align-items-center"
+                className="nav-link d-flex align-items-center"
                 to="#"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <img src={More} alt="more" />
+                <img src={More} alt="more" className="me-2" />
               </Link>
-              <ul className="dropdown-menu dropdown-menu-start">
-                <li><Link className="dropdown-item" to="/notification">Notification</Link></li>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li><Link className="dropdown-item" to="/order-history">My Order History</Link></li>
                 <li><Link className="dropdown-item" to="/contact">Contact</Link></li>
               </ul>
             </li>
