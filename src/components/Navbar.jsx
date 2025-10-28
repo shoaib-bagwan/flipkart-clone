@@ -110,7 +110,7 @@ const Navbar = () => {
               <ul className="dropdown-menu dropdown-menu-end">
                 <li><Link className="dropdown-item" to="/register">Register / New User</Link></li>
                 <li><Link className="dropdown-item" to="/login">Login</Link></li>
-                <li><Link className="dropdown-item" to="/home" onClick={logOut}>Logout</Link></li>
+                <li><Link className="dropdown-item" to="/login" onClick={logOut}>Logout</Link></li>
               </ul>
             </li>
 

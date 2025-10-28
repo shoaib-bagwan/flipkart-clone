@@ -34,7 +34,7 @@ function UpdateProduct() {
 
 
     const openModal = (item) => {
-        setSelectedProduct({ ...item }); 
+        setSelectedProduct({ ...item });
         setShowModal(true);
     };
 
@@ -45,7 +45,13 @@ function UpdateProduct() {
     return (
         <div className="container-fluid">
             <div className="row mt-3">
-                {product.map((e, index) => (
+                {product.length===0? (
+                    <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+                        <div className="spinner-border text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                ) : (product.map((e, index) => (
                     <div className="col-md-3 mb-4" key={index}>
                         <div className="card h-100 shadow-sm product-card">
                             <img
@@ -66,7 +72,8 @@ function UpdateProduct() {
                             </div>
                         </div>
                     </div>
-                ))}
+                ))
+                )}
             </div>
 
             {showModal && selectedProduct && (

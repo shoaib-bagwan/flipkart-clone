@@ -68,6 +68,15 @@ function SalesDashboard() {
             console.log(e);
         }
     };
+    const spinner=() => {
+        return (
+            <div className="d-flex justify-content-center align-items-center">
+                <div className="spinner-border text-warning" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        )
+    }
 
     useEffect(() => {
         fetchProduct();
@@ -85,7 +94,7 @@ function SalesDashboard() {
                     <div className="card shadow-sm text-center p-3 border-0 rounded-4">
                         <h5>Available Products</h5>
                         <h3 className="text-primary fw-bold">
-                            {productCount || 0}
+                            {productCount || spinner()}
                         </h3>
                     </div>
                 </div>
@@ -107,7 +116,7 @@ function SalesDashboard() {
                 <div className="col-md-3">
                     <div className="card shadow-sm text-center p-3 border-0 rounded-4">
                         <h5>Total Orders</h5>
-                        <h3 className="text-warning fw-bold">{itemSold || 0}</h3>
+                        <h3 className="text-warning fw-bold">{itemSold || spinner()}</h3>
                     </div>
                 </div>
 
@@ -115,7 +124,7 @@ function SalesDashboard() {
                     <div className="card shadow-sm text-center p-3 border-0 rounded-4">
                         <h5>Top Product</h5>
                         <h3 className="text-danger fw-bold">
-                            {topProduct.name || "Not Found"} ({topProduct.qty})
+                            {topProduct.name || spinner()} ({topProduct.qty})
                         </h3>
                     </div>
                 </div>
@@ -126,7 +135,7 @@ function SalesDashboard() {
                         <h3 className="text-primary fw-bold">
                             {orders.length > 0
                                 ? orders.reduce((total, o) => total + (o.products?.length || 0), 0)
-                                : 0}
+                                : spinner()}
                         </h3>
                     </div>
                 </div>
@@ -137,7 +146,7 @@ function SalesDashboard() {
                         <h3 className="text-primary fw-bold">
                             {orders.length > 0
                                 ? (orders.reduce((total, o) => total + (o.products?.length || 0), 0) / orders.length).toFixed(1)
-                                : 0}
+                                : spinner()}
                         </h3>
                     </div>
                 </div>
@@ -149,7 +158,7 @@ function SalesDashboard() {
                     <div className="card shadow-sm text-center p-3 border-0 rounded-4">
                         <h5>Total Customer</h5>
                         <h3 className="text-info fw-bold">
-                            {customer ? customer.length : 0}
+                            {customer ? customer.length : spinner()}
                         </h3>
                     </div>
                 </div>

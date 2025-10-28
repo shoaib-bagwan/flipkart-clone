@@ -25,7 +25,9 @@ import SalesDashboard from './components/SalesDashboard';
 import UpdateProduct from './components/UpdateProduct';
 function Layout() {
   const location = useLocation();
-  const hideNavFooter = location.pathname === "/login" || location.pathname === "/register";
+  const hideNavFooter = location.pathname === "/login" || location.pathname === "/register" 
+  || location.pathname === "/admin" || location.pathname==="/allorders" || location.pathname==="/add" || location.pathname==="/delete"
+  || location.pathname==="/update";
   return (
     <>
       {!hideNavFooter && <Navbar />}
@@ -43,7 +45,10 @@ function Layout() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/admin' element={<AdminNavbar />} />
+        <Route path='/admin' element={<>
+          <AdminNavbar />
+          <SalesDashboard/>
+        </>} />
         <Route path='/add' element={
           <>
             <AdminNavbar />
@@ -78,12 +83,11 @@ function Layout() {
         <Route path='/price/:price' element={<ProductDetails apiEndpoint="/api/product/price" paramName="price" />} />
         <Route path='/category/:category' element={<ProductDetails apiEndpoint="/api/product/category" paramName="category" />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/order-history' element={<OrderHistory></OrderHistory>}/>
-        <Route path="/paymentSuccess" element={<PaymentSuccess/>} />
-        <Route path="/admin-dashboard" element={<SalesDashboard/>} />
-        
+        <Route path='/order-history' element={<OrderHistory></OrderHistory>} />
+        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
+
         <Route path="*" element={<NotFound />} />
-        
+
       </Routes>
       {!hideNavFooter && <Footer />}
 
@@ -96,7 +100,7 @@ function App() {
     <div>
       <BrowserRouter>
         <CartProvider>
-          <Layout/>
+          <Layout />
         </CartProvider>
       </BrowserRouter>
     </div>

@@ -1,9 +1,17 @@
 import { Link } from 'react-router-dom';
 
 function AdminNavbar() {
+    const logOut = () => {
+        localStorage.removeItem("UserName");
+        localStorage.removeItem("Token");
+        localStorage.removeItem("mobileNo");
+        localStorage.removeItem("address");
+        localStorage.removeItem("email");
+        navigate("/login")
+    };
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-secondary">
+            <nav className="navbar navbar-expand-lg bg-secondary shadow-sm sticky-top">
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/admin">
                         <img
@@ -27,6 +35,15 @@ function AdminNavbar() {
                             </li>
                             <li className="nav-item ms-5">
                                 <Link className="nav-link fw-bold" aria-disabled="true" to="/update">Update Product</Link>
+                            </li>
+                            <li className="nav-item ms-5">
+                                <Link className="nav-link fw-bold" aria-disabled="true" to="/admin">DashBoard</Link>
+                            </li>
+                            <li className="nav-item ms-5">
+                                <Link className="nav-link fw-bold" aria-disabled="true" to="/login" onClick={logOut}>Logout</Link>
+                            </li>
+                            <li className="nav-item ms-5">
+                                <span className='nav-link fw-bold text-warning'>Welcome  ({localStorage.getItem("UserName")})</span>
                             </li>
                         </ul>
                     </div>

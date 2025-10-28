@@ -21,17 +21,17 @@ function DeleteProduct() {
         }
     }
 
-    const DeleteById= async(id)=>{
-        try{
-            const res=await axios.delete(`${apiUrl}/api/product/delete/${id}`).then(res=>{
-                
+    const DeleteById = async (id) => {
+        try {
+            const res = await axios.delete(`${apiUrl}/api/product/delete/${id}`).then(res => {
+
                 alert("Product Deleted Successfully")
                 fetchData()
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err);
                 alert("Data not Deleted")
             })
-        }catch(e){
+        } catch (e) {
             console.log(e)
             alert("Network error")
         }
@@ -42,10 +42,18 @@ function DeleteProduct() {
     }, [])
 
     return (
+
         <div>
             <div className="container-fluid ">
+
                 <div className="row mt-3">
-                    {product.map((e, index) => {
+                    {product.length === 0 ? (
+                        <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+                            <div className="spinner-border text-danger" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    ) : (product.map((e, index) => {
                         return (
                             <div className="col-md-3 mb-4" key={index}>
                                 <div className="card h-100 product-card">
@@ -61,12 +69,13 @@ function DeleteProduct() {
                                         <p className="card-text text-center fw-bold">{e.price}</p>
                                     </div>
                                     <div className="card-footer">
-                                        <button className="btn btn-danger" onClick={()=>DeleteById(e._id)}>Delete</button>
+                                        <button className="btn btn-danger" onClick={() => DeleteById(e._id)}>Delete</button>
                                     </div>
                                 </div>
                             </div>
                         );
-                    })}
+                    })
+                    )}
                 </div>
             </div>
 

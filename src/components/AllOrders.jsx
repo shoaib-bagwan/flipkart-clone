@@ -6,6 +6,7 @@ function AllOrders() {
   const apiUrl = "https://flipkart-backend-2-cup2.onrender.com";
   const [orders, setOrders] = useState([]);
 
+
   const fetchData = async () => {
     try {
       const res = await axios.get(`${apiUrl}/api/order/admin/orders`);
@@ -16,22 +17,22 @@ function AllOrders() {
     }
   };
 
-  const completeOrder=async(id)=>{
-    if(!window.confirm("Are You sure you want to mark as complete to this order"))return;
-    try{
-      const res=await axios.put(`${apiUrl}/api/order/cancel/${id}`,{role:"Completed"});
+  const completeOrder = async (id) => {
+    if (!window.confirm("Are You sure you want to mark as complete to this order")) return;
+    try {
+      const res = await axios.put(`${apiUrl}/api/order/cancel/${id}`, { role: "Completed" });
       console.log(res.data);
       alert("order completed successfully");
       fetchData();
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
 
   const cancelOrder = async (id) => {
-    if(!window.confirm("Are you sure you want to cancel this order"))return;
+    if (!window.confirm("Are you sure you want to cancel this order")) return;
     try {
-      await axios.put(`${apiUrl}/api/order/cancel/${id}`,{role:"admin"});
+      await axios.put(`${apiUrl}/api/order/cancel/${id}`, { role: "admin" });
       alert("Order cancelled successfully");
       fetchData(); // Refresh after deletion
     } catch (err) {
@@ -44,10 +45,16 @@ function AllOrders() {
     fetchData();
   }, []);
 
+
   return (
     <div className="container mt-4">
       {orders.length === 0 ? (
-        <p className="text-center mt-5">No orders found.</p>
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+          <div className="spinner-border text-danger" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
       ) : (
         orders.map((order, index) => (
           <div
