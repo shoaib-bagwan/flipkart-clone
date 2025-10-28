@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -19,6 +19,13 @@ function Login() {
     setData({ ...data, [name]: value });
   };
 
+    const deleteStorage=()=>{
+      localStorage.removeItem("UserName");
+      localStorage.removeItem("email");
+      localStorage.removeItem("mobileNo");
+      localStorage.removeItem("address");
+      localStorage.removeItem("Token");
+    }
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true); // start spinner
@@ -48,6 +55,9 @@ function Login() {
       setData({ email: "", password: "" });
     }
   };
+  useEffect(()=>{
+    deleteStorage();
+  },[])
 
   return (
     <div className="container bg-light">
