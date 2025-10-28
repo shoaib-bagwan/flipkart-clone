@@ -21,6 +21,7 @@ import PaymentSuccess from './components/PaymentSuccess';
 import ProductDetails from './components/ProductDetails';
 import ProductSlide from './components/ProductSlide';
 import Register from './components/Register';
+import SalesDashboard from './components/SalesDashboard';
 import UpdateProduct from './components/UpdateProduct';
 function Layout() {
   const location = useLocation();
@@ -79,6 +80,8 @@ function Layout() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/order-history' element={<OrderHistory></OrderHistory>}/>
         <Route path="/paymentSuccess" element={<PaymentSuccess/>} />
+        <Route path="/admin-dashboard" element={<SalesDashboard/>} />
+        
         <Route path="*" element={<NotFound />} />
         
       </Routes>
