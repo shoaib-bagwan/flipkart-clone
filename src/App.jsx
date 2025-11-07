@@ -11,7 +11,8 @@ import Cart from './components/Cart';
 import { CartProvider } from './components/CartContext';
 import DeleteProduct from './components/DeleteProduct';
 import Footer from './components/Footer';
-import Home from './components/Home';
+// import Home from './components/Home';
+import { lazy, Suspense } from 'react';
 import Login from './components/Login';
 import Nav2 from './components/Nav2';
 import Navbar from './components/Navbar';
@@ -23,11 +24,12 @@ import ProductSlide from './components/ProductSlide';
 import Register from './components/Register';
 import SalesDashboard from './components/SalesDashboard';
 import UpdateProduct from './components/UpdateProduct';
+const Home = lazy(() => import('./components/Home'));
 function Layout() {
   const location = useLocation();
-  const hideNavFooter = location.pathname === "/login" || location.pathname === "/register" 
-  || location.pathname === "/admin" || location.pathname==="/allorders" || location.pathname==="/add" || location.pathname==="/delete"
-  || location.pathname==="/update";
+  const hideNavFooter = location.pathname === "/login" || location.pathname === "/register"
+    || location.pathname === "/admin" || location.pathname === "/allorders" || location.pathname === "/add" || location.pathname === "/delete"
+    || location.pathname === "/update";
   return (
     <>
       {!hideNavFooter && <Navbar />}
@@ -47,7 +49,7 @@ function Layout() {
         <Route path="/login" element={<Login />} />
         <Route path='/admin' element={<>
           <AdminNavbar />
-          <SalesDashboard/>
+          <SalesDashboard />
         </>} />
         <Route path='/add' element={
           <>
@@ -100,7 +102,9 @@ function App() {
     <div>
       <BrowserRouter>
         <CartProvider>
-          <Layout />
+          <Suspense fallback={<div>loading...</div>}>
+            <Layout />
+          </Suspense>
         </CartProvider>
       </BrowserRouter>
     </div>
